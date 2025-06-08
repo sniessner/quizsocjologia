@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz Socjologia</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+    #question { margin-bottom: 20px; white-space: pre-line; }
+    button { display: block; margin: 5px 0; padding: 8px 16px; font-size: 16px; cursor: pointer; }
+    #result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h1>Quiz Socjologia</h1>
+<div id="question">Ładowanie pytań...</div>
+<div id="answers"></div>
+<div id="result"></div>
+
+<script>
+const questions = [
+`(1) Charyzma to:
+a) odmiana przesądów etnicznych
+b) forma religii
+c) forma legitymizacji władzy
+d) konflikt ról
+e) tyle co dyskryminacja`,
+`(2) Antysemityzm to:
+a) przesąd rasowy
+b) stereotyp
+c) dyskryminacja mniejszości
+d) przejaw nietolerancji
+e) wszystko to razem`,
+`(3) Rozwój społeczny cechuje się wszystkimi poniższymi cechami prócz jednej. Której?
+a) jest to proces endogenny
+b) jest reakcją na zmiany w środowisku
+c) posiada wyraźny kierunek
+d) można go porównać ze wzrostem organizmu
+e) prowadzi do podnoszenia wartości zmiennej, której dotyczy`,
+`(4) Górnicy to:
+a) klasa społeczna
+b) warstwa społeczna
+c) grupa społeczna
+d) kategoria zawodowa
+e) zbiorowość lokalna`,
+`(5) Stereotyp to:
+a) pewien stan umysłu
+b) rodzaj działania
+c) uproszczony i jednostronny obraz rzeczywistości
+d) określona postawa
+e) typ idealny`,
+`(7) Ewolucja społeczna w ujęciu Spencera to analogia do ewolucji gatunków opisanej przez Darwina.
+a) prawda
+b) fałsz`,
+`(8) Stosunek społeczny „lekarz-pacjent" ma wszystkie poniższe właściwości prócz jednej:
+a) jest nieegalitarny
+b) jest wyspecjalizowany
+c) jest pierwotny
+d) jest instrumentalny
+e) jest wzajemny`,
+`(10) „Efekt Mateusza" (w nawiązaniu do Ewangelii) opisuje:
+a) proces sekularyzacji
+b) nawrócenie mniejszości etnicznych
+c) pojawienie się herezji
+d) kumulację przewag i przywilejów społecznych
+e) rozpowszechnianie się dogmatyzmu i nietolerancji`,
+`(11) Poniższe czynniki (z wyjątkiem jednego) odgrywają rolę przy wyłanianiu przywódcy przez grupę. Wskaż czynnik, który jest tu nieistotny:
+a) dominujący wobec innych sposób bycia
+b) łatwość nawiązywania kontaktów
+c) wysoka kompetencja w dziedzinach cenionych przez grupę
+d) wzorowy konformizm wobec norm i reguł panujących w grupie
+e) tendencja do akceptowania przesądów i dyskryminowania mniejszości`,
+`(12) Rosnące podobieństwo (zuniformizowanie) stylu życia, wzorów konsumpcyjnych, poglądów, urządzeń technicznych w skali całego świata określamy jako:
+a) akulturację
+b) globalizację
+c) etnocentryzm
+e) konflikt kulturowy
+f) relatywną deprywację`,
+`(13) „Dychotomiczny (albo biegunowy) model struktury społecznej" to podział społeczeństwa na:
+a) grupy
+b) klasy
+d) kasty
+e) narody`,
+`(14) Typ idealny biurokracji opisany przez Webera zawiera wszystkie poniższe cechy z wyjątkiem jednej. Której?
+a) specjalizacja zadań i funkcji
+b) hierarchia urzędów
+c) precyzyjne reguły awansu zawodowego
+d) nepotyzm i korupcja
+e) pisemne formy podejmowania decyzji`,
+`(15) „Wolność, równość, braterstwo!". Te hasła odwołują się do:
+a) norm
+b) wartości
+c) stereotypów
+d) etnocentryzmu
+e) relatywnej deprywacji`,
+`(16) Według E. Durkheima, „fakty społeczne" cechują się następującymi właściwościami prócz jednej. Której?
+a) są rozpowszechnione (podzielane) w zbiorowości
+b) są przymuszające
+c) są zewnętrzne wobec każdej jednostki
+d) są obserwowalne zmysłowo
+e) należą do kultury`,
+`(17) W typologii działań społecznych Webera nie występuje jedna z poniższych kategorii. Która?
+a) działanie racjonalne ze względu na środki
+b) działanie racjonalne ze względu na wartość
+c) działanie logiczne
+d) działanie emocjonalne
+e) działanie tradycjonalne`,
+`(18) Jan zarabia dziesięć razy więcej pieniędzy od Sławka. Nie wiemy, co obaj robią, w jaki sposób zarabiają. Możemy jednak od razu powiedzieć, że jest to przejaw:
+a) niesprawiedliwości społecznej
+b) Test sprawdzający rozumienie pojęć socjologicznych
+b) wyzysku klasowego
+c) sprawiedliwości merytokratycznej
+d) zróżnicowania zarobkowego
+e) nierówności społecznej`,
+`(20) Bandyta, który grozi rewolwerem stosuje:
+a) przemoc
+b) perswazję
+c) przymus
+d) autorytet
+e) wpływ charyzmatyczny`,
+`(21) Wielość przynależności grupowych każdej jednostki znajduje wyraz także w:
+a) pluralizmie kulturowym
+b) konflikcie w roli
+c) konflikcie ról
+d) walce klas
+e) relatywizmie kulturowym`,
+`(23) Podstawowa cecha interakcji społecznej to:
+a) wzajemność
+b) powtarzalność
+c) regulacja normatywna
+d) długotrwałość`,
+`(24) Uścisk dłoni jako forma przywitania to przykład wszystkich poniższych kategorii z
+wyjątkiem jednej. Której?
+a) konwencja kulturowa
+b) zwyczaj społeczny
+c) reguła moralna
+d) norma etykiety towarzyskiej
+e) gest symboliczny`,
+`(25) Uścisk dłoni jako forma przywitania to:
+a) kompleks kulturowy
+b) konfiguracja kulturowa
+c) wartość kulturowa
+d) element kulturowy
+e) mit kulturowy`,
+`(26) Przechodzenie z jednej warstwy społecznej do drugiej to:
+a) ruchliwość zawodowa
+b) ruchliwość pionowa
+c) ruchliwość pozioma
+d) migracja
+e) urbanizacja`,
+`(27) „Nierówność społeczna jest nieunikniona, konieczna, wieczna i pożyteczna", to teza:
+a) teorii konfliktu społecznego
+b) marksistowskiej teorii klas
+c) funkcjonalnej teorii stratyfikacji
+d) ideologii rewolucyjnej
+e) Włodzimierza Lenina`,
+`(28) „Margines społecznej tolerancji" to to samo co:
+a) permisywizm
+b) zespół okoliczności wyłączających zastosowanie sankcji
+c) tolerancja wobec ludzi marginesu
+d) niewykrywalność przestępstw (tzw. czarna liczba)
+e) anomia`,
+`(29) Czym nie jest rodzina:
+a) grupą społeczną
+b) instytucją
+c) stowarzyszeniem
+d) swoistą formą organizacji
+e) grupą pierwotną`,
+`(30) Przeciwieństwem stereotypu jest:
+a) dogmat religijny
+b) ideologia
+c) statystyczne rozkłady cech zbiorowości
+d) typ idealny
+e) przesąd etniczny`,
+`(31) Przeciwieństwem etnocentryzmu jest:
+a) nacjonalizm
+b) patriotyzm
+c) relatywizm kulturowy
+d) empiryzm
+e) szowinizm`,
+`(32) W ujęciu Karola Marksa władza (panowanie) to stosunek między:
+a) rolami społecznymi
+b) klasami społecznymi
+c) proletariuszami
+d) kapitalistami
+e) rewolucjonistami i rządem`,
+`(33) Nagrody i kary to dwie odmiany:
+a) sankcji społecznych
+b) bodźców
+c) norm
+d) znaczeń działań ludzkich
+e) interakcji`,
+`(34) Dwie podstawowe klasy w modelu biegunowym to kapitalizm:
+a) rządzący i rządzeni
+b) kapitaliści i proletariusze
+c) menedżerowie i akcjonariusze
+e) bolszewicy i mienszewicy`,
+`(35) Dyskryminacja etniczna i rasowa prowadzi zawsze do:
+a) przyjaźni
+b) integracji społecznej
+c) eksploatacji jednych grup przez drugie
+d) zmiany społecznej
+e) rewolucji`,
+`(37) Znaczenie jest konstytutywną cechą:
+a) działania
+b) interakcji
+c) działania społecznego
+d) dzieła sztuki
+e) wszystkich powyższych zjawisk`,
+`(38) „Teoria zróżnicowanych kontaktów" tłumaczy dewiację jako efekt:
+a) skłonności wrodzonych
+b) zapóźnienia umysłowego
+c) odrzucenia (etykietowania, napiętnowania) przez środowisko
+d) dostępności wzorów przestępczych w najbliższym środowisku
+e) anomii`,
+`(39) Grupa, z którą się identyfikujemy, mimo że nie jesteśmy jej członkami, to:
+a) grupa wewnętrzna (in-group)
+b) grupa zewnętrzna (out-group)
+c) pozytywna grupa odniesienia
+d) negatywna grupa odniesienia
+e) grupa marginesu`,
+`(40) Grupa, z którą się nie identyfikujemy, mimo że jesteśmy jej członkami, to:
+a) grupa wewnętrzna (in-group)
+b) istotni inni
+c) negatywna grupa odniesienia
+d) grupa przestępcza
+e) grupa studencka`,
+`(41) Grupę, w której wszystkie prawa i obowiązki członków są ściśle uregulowane, nazywamy:
+a) zewnętrzną
+b) ekskluzywną
+c) formalną
+d) pierwotną
+e) etniczną`,
+`(42) Wszyscy Polacy, którzy byli kiedyś w Krakowie i słyszeli hejnał z wieży mariackiej tworzą:
+a) krąg społeczny
+b) tłum
+c) kategorię społeczną
+d) zbiór statystyczny
+e) grupę społeczną`,
+`(43) Pojęcie normy kulturowej nie obejmuje:
+a) osobistych nawyków
+b) zakazanych form postępowania
+c) dozwolonych metod działania
+d) nakazów postępowania
+e) preferowanych zachowań`,
+`(44) Nakaz zawierania małżeństw z członkami tej samej grupy (klasy, warstwy), do której się należy, nazywamy:
+a) bigamią
+b) monogamią
+c) poligamią
+d) endogamią
+e) egzogamią`,
+`(45) W ujęciu Maxa Webera władza to stosunek między:
+a) klasami społecznymi
+b) instytucjami
+c) grupami społecznymi
+d) jednostkami
+e) rolami społecznymi`,
+`(46) Ojciec Roberta Mertona był cieślą, Merton - słynnym profesorem socjologii, a syn Mertona dostał Nagrodę Nobla w dziedzinie ekonomii. Nazywamy to:
+a) ruchliwością poziomą
+b) ruchliwością wewnątrzgeneracyjną
+c) ruchliwością międzygeneracyjną
+d) nepotyzmem
+e) degradacją społeczną`,
+`(47) Zbiegowisko wokół miejsca wypadku samochodowego to:
+a) audytorium
+b) publiczność
+c) tłum
+d) organizacja społeczna
+e) ruch społeczny`,
+`(48) Wierni zebrani na mszy celebrowanej przez Papieża to:
+a) tłum
+b) grupa
+c) publiczność
+d) audytorium
+e) ruch społeczny`,
+`(49) Która odpowiedź wskazuje najmniejszy dystans społeczny wobec cudzoziemców:
+a) pozwoliłbym na przyjazd do mojego kraju
+b) pozwoliłbym na małżeństwo z moją córką
+c) pozwoliłbym na zatrudnienie w moim zawodzie
+d) pozwoliłbym na podjęcie pracy w mojej fabryce
+e) pozwoliłbym na zamieszkanie w moim sąsiedztwie`,
+`(50) Teoria modernizacji jest w podstawowych założeniach podobna do:
+a) teorii cykli społecznych Sorokina
+b) teorii ewolucji społecznej
+c) teorii globalizacji
+d) teorii materializmu historycznego
+e) teorii relatywnej deprywacji`,
+`(51) Nagły wzrost aspiracji społeczeństwa prowadzi do relatywnej deprywacji we wszystkich poniższych sytuacjach prócz jednej. Której?
+a) gdy warunki życiowe pozostają niezmienne
+b) gdy następuje kryzys gospodarczy
+c) gdy równocześnie rośnie standard życia
+d) gdy aspiracje nie mogą być zaspokojone
+e) gdy aspiracje są zaspokajane w sposób ostentacyjny tylko przez niewielkie liczebnie
+środowiska`,
+`(52) Ryzyko różni się od zagrożenia tym, że:
+a) jest większe
+b) jest efektem naszych własnych decyzji i działań
+c) występuje powszechnie
+d) budzi strach
+e) nie można mu przeciwdziałać`,
+`(53) Co mają wspólnego wodociągi, Internet, linie lotnicze, system ciepłowniczy, sieć
+elektryczna, telekomunikacja:
+a) zostały niedawno wynalezione
+b) pojawiły się najpierw w Europie
+c) stanowią tzw. systemy abstrakcyjne albo ekspertalne
+d) są niezawodne
+e) korzystają z nich wszyscy mieszkańcy Ziemi`,
+`(54) Zjawisko „pasażera na gapę" to:
+a) notoryczne niepłacenie podatków
+b) czekanie aż inni zrealizują „dobra publiczne"
+c) forma dewiacji w transporcie zbiorowym
+d) odmowa zapłaty taksówkarzowi
+e) wszelka bierność i apatia polityczna`,
+`(55) Dziecko, które na złość mamie łamie wszystkie zakazy, przejawia:
+a) oportunizm
+b) konformizm
+c) nonkonformizm
+d) kontraformizm
+e) zły charakter`,
+`(56) Która analogia najlepiej oddaje współczesny punkt widzenia na charakter społeczeństwa ludzkiego:
+a) mechanizm społeczny
+b) organizm społeczny
+c) fizjologia społeczna
+d) anatomia społeczna
+e) życie społeczne`,
+`(57) Socjologia pozytywistyczna nakazuje:
+a) formułować optymistyczne prognozy społeczne
+b) naśladować metody i techniki badawcze nauk przyrodniczych
+c) badać pozytywne strony życia społecznego
+d) badać przy pomocy typów idealnych
+e) interpretować znaczenie tekstów`,
+`(58) „Polacy to naród wybrany, którego obyczaje są najlepsze i powinny być przejęte przez inne narody". Taki pogląd to przejaw:
+a) pluralizmu
+b) tolerancji
+c) etnocentryzmu
+d) relatywizmu kulturowego
+e) konserwatyzmu`,
+`(59) Dobrym przykładem nonkonformisty jest:
+a) morderca
+b) rewolucjonista
+c) homoseksualista
+d) złodziej
+e) plagiator`,
+`(60) Składnikami struktury normatywnej społeczeństwa są m.in.:
+a) przekonania
+b) pozycje społeczne
+c) interesy
+d) wartości
+e) szansę życiowe`,
+`(61) Socjologia humanistyczna za „atom" życia społecznego uważa:
+a) fakty społeczne
+b) działania społeczne
+c) systemy społeczne
+d) organizmy społeczne
+e) grupy społeczne`,
+`(62) Nasze przekonanie o sobie, oparte na tym, jak oceniają nas inni, nazywamy:
+a) osobowością
+b) charakterem narodowym
+c) dumą
+d) stereotypem
+e) jaźnią odzwierciedloną`,
+`(63) Nonkonformizm to odmiana dewiacji cechująca się:
+a) znacznym nasileniem
+b) publicznym, otwartym manifestowaniem
+c) szczególną szkodliwością społeczną
+d) wysokimi sankcjami
+e) powszechnym występowaniem w społeczeństwie`,
+`(64) Gdy jednostka odrzuca cele (wartości), a mimo to przestrzega społecznie nakazanych norm, to mamy do czynienia z:
+a) innowacją
+b) konformizmem
+c) rytualizmem
+d) buntem
+e) wycofaniem się (rezygnacją)`,
+`(65) Mundury, uniformy, odznaki noszone przez jednostkę służą do tego, aby ułatwić rozpoznanie:
+a) jej zamiarów
+b) jej zasług
+c) jej pozycji społecznej (statusu)
+d) jej charakteru
+e) jej jaźni odzwierciedlonej`,
+`(66) Jeżeli mam wobec kogoś pewne uprawnienia i obowiązki, to oznacza to, że pozostaję z nim w:
+a) interakcji
+b) przyjaźni
+c) konflikcie
+d) stosunku społecznym
+e) wzajemności`,
+`(67) Pojęcie jaźni odzwierciedlonej odnosi się do:
+a) naszych aspiracji
+b) przesądów grupowych
+c) tego, jak inni rzeczywiście nas oceniają
+d) naszych wyobrażeń o tym, jak wyglądamy w oczach innych
+e) stereotypów etnicznych`,
+`(68) Synonimem „jaźni odzwierciedlonej" w ujęciu Cooleya jest w koncepcji psychoanalitycznej:
+a) id
+b) ego
+c) superego
+d) archetyp
+e) typ idealny`,
+`(69) Synonimem „jaźni odzwierciedlonej" w ujęciu Cooleya jest w koncepcji symbolicznego interakcjonizmu Meada:
+a) I
+b) me
+c) istotni inni
+d) uogólnieni inni
+e) grupa pierwotna`,
+`(70) Prestiż jest określany przez:
+a) zakres władzy
+b) szacunek społeczny
+c) wpływy
+d) układy i koneksje
+e) poziom dochodów`,
+`(71) Władza, która opiera się na akceptacji i uznaniu rządzonych nazywana jest:
+a) sprawiedliwą
+b) demokratyczną
+c) legitymizowaną
+d) autorytarną
+e) totalitarną`,
+`(72) Słowo „ojciec" opisuje:
+a) cechy osobowościowe jednostki
+b) zdolność prokreacyjną
+c) pozycję społeczną (status)
+d) przynależność grupową
+e) prestiż społeczny jednostki`,
+`(73) Matka, która ostrzega córkę, aby uważała na swoją „reputację", odwołuje się do sankcji:
+a) prawnych
+b) formalnych
+c) seksualnych
+d) nieformalnych
+e) karnych`,
+`(75) W społeczeństwach pierwotnych, a także .współczesnych społecznościach kastowych, sytuacja życiowa jednostki wynika przede wszystkim z jej:
+a) pozycji nabytej
+b) pozycji przypisanej
+c) przynależności klasowej
+d) sukcesu zawodowego
+e) stopnia wykształcenia`,
+`(76) Szerokie socjologiczne pojęcie kultury obejmuje wszystkie poniższe składniki z wyjątkiem jednego. Którego?
+a) prawa
+b) sztuka
+c) zwyczaje
+d) nawyki
+e) kościoły i katedry`,
+`(77) Stosunek społeczny pomiędzy lekarzem a pacjentem ma charakter:
+a) rozproszony
+b) wyspecjalizowany
+c) ekspresyjny
+d) intymny
+e) egalitarny`,
+`(78) Które z poniższych zachowań nie jest przykładem działania społecznego:
+a) napisanie testamentu
+b) danie jałmużny biednemu
+c) przespanie się do południa
+d) wysłuchanie wykładu na uniwersytecie
+e) udział w wyborach do sejmu`,
+`(79) Która z poniższych cech nie charakteryzuje grup pierwotnych:
+a) mocna identyfikacja z grupą
+b) duża liczebność grupy
+c) intymne stosunki między członkami grupy
+d) interakcje „twarzą w twarz"
+e) wczesne doświadczenia socjalizacyjne`,
+`(80) Które z poniższych twierdzeń nie jest przejawem stereotypu:
+a) Polskie dziewczyny są najładniejsze na świecie
+b) Niebo we Włoszech jest najbardziej niebieskie
+c) Japończycy produkują najwięcej samochodów na świecie
+d) Anglicy są najlepiej wychowanym narodem świata
+e) Murzyni są zacofani umysłowo`,
+`(81) Która z poniższych pozycji jest najlepszym przykładem pozycji przypisanej:
+a) dentysta
+b) narzeczony
+c) oskarżony
+d) kobieta
+e) ojciec`,
+`(82) Która z poniższych sytuacji jest przykładem „konfliktu w roli":
+a) urzędnik idzie do pracy, mimo że czuje się chory
+b) asystent chciałby poświęcać więcej czasu na przygotowanie zajęć ze studentami, ale musi pisać doktorat, bo straci pracę
+c) wybitny tenisista stara się powrócić na kort po długiej przerwie, ale ma
+już swoje lata i nie może grać tak jak dawniej
+d) studentka chciałaby kupić nowe dżinsy i włoskie koturny, ale stypendium wystarczy
+najwyżej na jedną z tych rzeczy
+e) robotnik nie znosi swojego zawodu, ale musi pracować, żeby wyżywić rodzinę`,
+`(83) Która z poniższych pozycji nie jest osiągnięta (nabyta):
+a) student
+b) nastolatek
+c) mąż
+d) ojciec
+e) policjant`,
+`(84) Jaka z poniższych pozycji społecznych jest przypisana:
+a) student
+b) profesor uniwersytetu
+c) lekarz
+d) mężczyzna
+e) narciarz`,
+`(85) Która z poniższych cech społecznych jednostki nie jest przypisana:
+a) wiek
+b) płeć
+c) zawód
+d) rasa
+e) pochodzenie społeczne`,
+`(86) Które z poniższych zdań nie jest stereotypem etnicznym:
+a) Polacy to naród wybrany
+b) Żydzi są chciwi
+c) Murzyni są leniwi
+d) Chińczyków jest najwięcej
+e) Anglicy są flegmatyczni`,
+`(87) Jakie z poniższych czynników wywierają największy wpływ na przebieg interakcji:
+a) wzrost i kolor oczu partnerów
+b) temperament
+c) pozycja społeczna
+d) miejsce zamieszkania
+e) wzajemna życzliwość`,
+`(88) Jeśli kobieta porywa cudze dziecko, bo strasznie pragnie być matką, to -według znanej typologii Mertona - mamy do czynienia z:
+a) buntem
+b) rytualizmem
+c) innowacją
+d) konformizmem
+e) nonkonformizmem`,
+`(89) Wszystkie pozycje społeczne, jakie aktualnie zajmujesz, tworzą:
+a) zespół ról
+b) kompleks kulturowy
+c) konfigurację pozycji
+d) syndrom osobowościowy
+e) organizację społeczną`,
+`(90) Wspólna cecha proroków, przywódców, bohaterów, demagogów to:
+a) mądrość
+b) dalekowzroczność
+c) prawdomówność
+d) charyzma
+e) konformizm`,
+`(91) Broniąc żony przed napadem, mąż zastrzelił bandytę. Sąd uwzględni jako okoliczność łagodzącą lub nawet wyłączającą winę:
+a) stan wyższej konieczności
+b) działanie w afekcie
+c) obronę konieczną
+d) młody wiek bandyty
+e) złe warunki biometeorologiczne`,
+`(92) Socjalizacja permanentna przejawia się w następujących formach, z wyjątkiem jednej. Której?
+a) socjalizacja do zawodu
+b) wdrażanie do kultury politycznej
+c) nauka mówienia i czytania
+d) resocjalizacja
+e) socjalizacja małżeńska`,
+`(93) Rządy sprawowane przez starszyznę w plemieniu Irokezów to przykład:
+a) władzy tradycyjnej
+b) władzy charyzmatycznej
+c) władzy legalnej
+d) władzy racjonalnej
+e) kleptokracji`,
+`(94) Z pewnym przybliżeniem można powiedzieć, że odpowiednikiem super-ego z koncepcji Z. Freuda, jest dla C. Cooleya (przedstawiciela tzw. symbolicznego interakcjonizmu):
+a) ego
+b) id
+c) jaźń odzwierciedlona
+d) symboliczna interakcja
+e) instynkt`,
+`(95) Zakon to przykład grupy:
+a) pierwotnej
+b) przypisanej
+c) „żarłocznej" (totalitarnej)
+d) segmentowej
+e) zadaniowej`,
+`(96) Rozmowa to przykład:
+a) stosunku społecznego
+b) interakcji
+c) kontaktu społecznego
+d) zachowania zbiorowego
+e) mobilizacji społecznej`,
+`(97) Stalin był przywódcą:
+a) demokratycznym
+b) leseferystycznym
+c) autokratycznym
+d) tradycyjnym
+e) liberalnym`,
+`(98) Teoria stawania się społeczeństwa przyjmuje perspektywę:
+a) funkcjonalistyczną
+b) systemową
+c) polową
+d) strukturalną
+e) grupową`,
+`(99) Wzrost średniej długości życia w społeczeństwie, to:
+a) regres
+b) zrządzenie opatrzności
+c) skutek degradacji środowiska
+d) postęp
+e) przypadek genetyczny`,
+`(100) Kariera „od pucybuta do milionera" jest możliwa w społeczeństwie, którego struktura społeczna jest:
+a) kastowa
+b) bezklasowa
+c) otwarta
+d) zamknięta
+e) klanowa`,
+`(101) Na zbiór ról pełnionych przez kelnera w restauracji składają się:
+a) stosunki z przyjaciółmi, krewnymi, narzeczoną
+b) stosunki z klientami i kolegami
+c) stosunki z kucharzem, innymi kelnerami i znajomymi
+d) stosunki z żoną i dziećmi
+e) stosunki z klientami, kucharzem, innymi kelnerami, barmanem, portierem, szatniarzem`,
+`(102) Grupa społeczna różni się od kategorii społecznej tym, że:
+a) jej członkowie mają świadomość wspólnoty i zarazem odrębności od innych
+b) jej członkowie lubią się nawzajem
+c) jej członkowie mają świadomość przynależności i nawiązują ze sobą interakcje
+d) jest bardziej trwała
+e) składa się tylko z mężczyzn`,
+`(103) Zdanie: „Francuzi są najlepszymi kochankami", to:
+a) przesąd etniczny
+b) stereotyp
+c) twierdzenie naukowe seksuologii
+d) przejaw dyskryminacji
+e) samospełniające się proroctwo`,
+`(104) Autorytet, w sensie socjologicznym, to:
+a) władza oparta tylko na przymusie
+b) przewaga jednej grupy społecznej nad drugą
+c) władza prawomocna
+d) dominacja silnej charyzmatycznej jednostki nad grupą
+e) społeczeństwo rządzone przez mężczyzn obdarzonych silnym charakterem`,
+`(105) Kiedy spotykasz się w pubie z kolegami czy koleżankami, żeby pogadać i wypić piwo, to jest to przykład:
+a) działania instrumentalnego
+b) alienacji
+c) zachowania zbiorowego
+d) działania autotelicznego
+e) dewiacji`,
+`(106) Socjologia różni się od wiedzy potocznej tym, że:
+a) uprawiają ją zawodowo socjologowie
+b) jest wykładana na uniwersytecie
+c) dostarcza wiedzy pewnej i niewątpliwej
+d) dostarcza wiedzy systematycznej i empirycznie potwierdzonej
+e) umożliwia naukowe kierowanie państwem`,
+`(107) Upadek komunizmu w Europie w roku 1989 można uważać za rewolucję ze wszystkich poniższych powodów prócz jednego:
+a) stanowił epokowy przełom
+b) oznaczał zmiany polityczne, ekonomiczne, społeczne i kulturowe
+c) przyniósł odmianę życia codziennego
+d) dokonał się w wyniku gwałtownych, krwawych starć z użyciem przemocy
+e) wiązał się z wybuchem mobilizacji i entuzjazmu społecznego`,
+`(108) Rekrutacja wtórna do ruchu społecznego, to:
+a) powrót dawnych członków, którzy wcześniej odeszli
+b) uczestnictwo w ruchu z mocnych pobudek ideowych, związane z gotowością do wyrzeczeń i
+ryzyka osobistego
+c) przyłączanie się z pobudek oportunistycznych do ruchu odnoszącego sukcesy
+d) podwojenie liczby członków ruchu
+e) to samo co „syndrom pasażera na gapę"`,
+`(109) Proces zmniejszania się religijności w nowoczesnych społeczeństwach to:
+a) anomia
+b) alienacja
+c) ruchliwość społeczna
+d) sekularyzacja
+e) sakralizacja`,
+`(110) Socjologia interesuje się jednostką jako:
+a) konkretną z imienia i nazwiska osobą
+b) osobowością człowieka
+c) organizmem biologicznym
+d) podmiotem działań, interakcji i stosunków społecznych
+e) obywatelem, uczestnikiem życia politycznego`,
+`(111) Czym różni się przestępstwo pospolite od nonkonformizmu?
+a) jest groźniejsze społecznie
+b) jest skierowane przeciwko ludności
+c) towarzyszy mu akceptacja naruszanej normy
+d) zmierza do zmiany norm społecznych
+e) spotyka się zawsze z karą sądową`,
+`(112) Działanie różni się od zachowania tym, że:
+a) jest bardziej długotrwałe
+b) posiada znaczenie motywacyjne i kulturowe
+c) ma charakter autoteliczny
+d) jest odruchowe
+e) przejawia się w ruchach społecznych`,
+`(114) Optymalny rezultat socjalizacji to sytuacja, kiedy ludzie:
+a) postępują konformistycznie, bo boją się policji
+b) mają poczucie winy lub wstydu, kiedy złamią zakazy społeczne
+c) nie przychodzi im w ogóle do głowy, że można zachować się sprzecznie z regułami
+społecznymi
+d) uważają reguły za wymysł głupków
+e) manifestują swoją tożsamość przez dewiacje`,
+`(115) Najważniejszym efektem socjalizacji w każdym społeczeństwie jest:
+a) nauczenie się różnych gier towarzyskich
+b) poznanie dziejów swojego kraju
+c) nauczenie się mówienia i pisania w języku narodowym
+d) wpojenie sobie reguł dobrego wychowania
+e) opanowanie języków obcych`,
+`(117) Biznesmen japoński spędza 16 godzin dziennie w zakładach Sony i zupełnie zaniedbuje rodzinę. Ta sytuacja dobrze ilustruje:
+a) konflikt w roli
+b) konflikt ról
+c) relatywną deprywację
+d) instytucjonalizację
+e) socjalizację antycypującą`,
+`(118) Typ więzi społecznej występujący w małej wiosce rybackiej, gdzie wszyscy mieszkańcy tkają sieci, wypływają w morze, łowią ryby, określamy - za Durkheimem - jako:
+a) solidarność organiczną
+b) podział pracy
+c) solidarność mechaniczną
+d) anomię
+e) etnocentryzm`,
+`(121) Stosunek społeczny to relacja między:
+a) jednostkami
+b) grupami
+c) pozycjami społecznymi
+d) organizacjami społecznymi
+e) instytucjami społecznymi`,
+`(122) Jedyna powszechnie spotykana we wszystkich kulturach norma dotycząca stosunków seksualnych to zakaz:
+a) bigamii
+b) cudzołóstwa
+c) kazirodztwa
+d) aborcji
+e) rozwodów`,
+`(123) Monopol na stosowanie przymusu posiada:
+a) władza autorytarna
+b) policja
+c) grupa terrorystyczna
+d) państwo
+e) ojciec rodziny`,
+`(124) Dobrym przykładem stosunków społecznych egalitarnych jest:
+a) ojcostwo
+b) przyjaźń
+c) zatrudnienie w zakładzie pracy
+d) służba wojskowa
+e) porada u adwokata`,
+`(125) Najważniejsza właściwość stosunku społecznego, która nie występuje w innych formach kontaktów międzyludzkich, to:
+a) wzajemność
+b) normatywna regulacja
+c) powtarzalność
+d) ukierunkowanie na innego człowieka
+e) znaczenie motywacyjne`,
+`(126) Synonimem pojęcia struktury społecznej jest:
+a) sieć stosunków społecznych
+b) instytucja
+c) grupa społeczna
+d) działanie zbiorowe
+e) formacja społeczno-ekonomiczna`,
+`(127) Egzaminy na studia wyższe w Polsce odbywają się obecnie wg kryteriów:
+a) partykularystycznych
+b) uniwersalistycznych
+c) rygorystycznych
+d) liberalnych
+e) przypadkowych`,
+`(128) W zamkniętym systemie stratyfikacji społecznej (pozbawionym ruchliwości pionowej) podstawowa zbiorowość społeczna stanowiąca składnik hierarchii nierówności to:
+a) kasta
+b) warstwa
+c) stan
+d) pokolenie
+e) sekta`,
+`(130) Działanie to takie zachowanie jednostki, które:
+a) wywołuje istotne skutki społeczne
+b) wyraża społeczną osobowość jednostki
+c) posiada znaczenie motywacyjne i kulturowe
+d) odzwierciedla socjalizujący wpływ społeczeństwa na jednostkę
+e) ma charakter zbiorowy`,
+`(131) Akulturacja to to samo co:
+a) konflikt kulturowy
+b) asymilacja
+c) socjalizacja
+d) imigracja
+e) relatywizm kulturowy`,
+`(132) Przeciwieństwo konformizmu to:
+a) dewiacja
+b) nonkonformizm
+c) oportunizm
+d) bunt
+e) alienacja`,
+`(133) Tabu kulturowe to inaczej:
+a) nakaz
+b) przyzwolenie
+c) zakaz
+d) preferencja
+e) ideał kulturowy`,
+`(134) Role społeczne to składniki:
+a) struktury idealnej
+b) struktury interakcyjnej
+c) struktury normatywnej
+d) struktury interesów
+e) grupy społecznej`,
+`(135) Kontrola społeczna to:
+a) sprawdzanie działania urzędów przez komisje obywatelskie
+b) system sankcji społecznych wymierzanych za akty dewiacji
+c) nadzór parlamentu nad ministerstwami
+d) nadzór NIK nad administracją publiczną
+e) forma działania ruchów społecznych`,
+`(136) Socjalizacja antycypująca to:
+a) to samo co resocjalizacja
+b) naśladowanie norm i wartości grup, do których się pragnie należeć
+c) socjalizacja we wczesnym dzieciństwie
+d) przygotowanie do śmierci
+e) edukacja szkolna`,
+`(137) Ruchy społeczne to:
+a) działania odgórne wywołujące zamierzoną zmianę społeczną
+b) działania oddolne zmierzające do wywołania zmian społecznych
+c) działania odgórne wywołujące zmianę społeczną jako skutek uboczny
+d) działania oddolne wywołujące zmianę społeczną jako skutek uboczny
+e) działania reformatorskie podejmowane przez państwo`,
+`(138) Zbiorowość „skinów" to:
+a) grupa pierwotna
+b) kontrkultura
+c) konformiści
+d) mniejszość etniczna
+e) kategoria społeczna`,
+`(139) Muzycy rockowi to:
+a) grupa pierwotna
+b) szczególna subkultura
+c) mniejszość etniczna
+d) ruch społeczny
+e) klasa społeczna`,
+`(140) Jako student masz pewne obowiązki wobec profesora. Tworzą one:
+a) Twoją rolę społeczna
+b) Twój zespół ról
+c) segment Twojej roli
+d) konglomerat Twoich pozycji
+e) Twoje ego`,
+`(141) Zachowanie ludzi w tłumie cechuje się wszystkimi poniższymi cechami z wyjątkiem jednej. Której?
+a) irracjonalność
+b) sugestywność i naśladownictwo
+c) zimna kalkulacja
+d) zanik hamulców moralnych
+e) uniformizacja zachowania`,
+`(142) Instytucje społeczne w rozumieniu socjologicznym to:
+a) zespoły stosunków społecznych
+b) budynki państwowe
+c) więzienia, szpitale i przedszkola
+d) przepisane sposoby postępowania (reguły, normy, wartości) w danej dziedzinie
+e) to samo, co grupy społeczne`,
+`(143) Wszyscy urodzeni w piątek to:
+a) kategoria społeczna
+b) kategoria statystyczna
+c) grupa społeczna
+d) organizacja społeczna
+e) instytucja społeczna`,
+`(144) Stosunki społeczne wiążą ze sobą:
+a) działania
+b) osoby
+c) pozycje (statusy)
+d) normy
+e) wartości`,
+`(146) Sprawiedliwość merytokratyczna wyraża się formułą:
+a) dla każdego według jego potrzeb
+b) biednym najwięcej dodać, bogatym zabrać
+c) dla każdego wedle zasług, wkładu pracy i pożytku społecznego
+d) wszystkim po równo
+e) biedni będą jeszcze biedniejsi, a bogaci jeszcze bogatsi`,
+`(147) Zbiór ludzi wyróżniających się pewną wspólną cechą i świadomych tej odrębności to:
+a) organizacja społeczna
+b) stowarzyszenie
+c) grupa społeczna
+d) kategoria społeczna
+e) instytucja`,
+`(149) Głównym przedmiotem zainteresowania socjologii są:
+a) ludzie
+b) historia
+c) zbiorowości ludzkie
+d) „przestrzeń międzyludzka" czyli struktura społeczna
+e) ideologia`,
+`(150) Biurokratyczna forma zarządzania przynosi najlepsze efekty w przypadku:
+a) zadań twórczych i innowacyjnych
+b) zadań rutynowych i powtarzalnych
+c) przywództwa w małych grupach
+d) mobilizacji ruchów społecznych
+e) zachowania zbiorowego`,
+`(151) Prawo to zbiór norm społecznych:
+a) najsurowszych
+b) stanowionych i sankcjonowanych przez państwo
+c) za których naruszenie grozi nawet kara śmierci
+d) zawartych w kodeksach
+e) dotyczących dorosłych obywateli`,
+`(152) Reguła, że zdejmujemy kapelusz, żeby pozdrowić znajomego, jest przykładem:
+a) normy moralnej
+b) normy prawnej
+c) anomii
+d) alienacji
+e) zwyczajowej konwencji kulturowej`,
+`(153) Rodzina nie jest:
+a) grupą
+b) stowarzyszeniem
+c) grupą pierwotną
+d) instytucją
+e) organizacją`,
+`(154) Układ powiązanych ze sobą pozycji społecznych nazywamy:
+a) grupą
+b) społecznością lokalną
+c) instytucją
+d) organizacją
+e) państwem`,
+`(155) Ksiądz Maksymilian Kolbe, poświęcając się za innego więźnia w Oświęcimiu, podejmował działanie:
+a) oportunistyczne
+b) nieracjonalne
+c) racjonalne instrumentalnie
+d) racjonalne ze względu na wartość
+e) teologiczne`,
+`(156) Kibice demolujący ławki na stadionie to:
+a) masa społeczna
+b) tłum
+c) ruch społeczny
+d) grupa społeczna
+e) organizacja społeczna`,
+`(157) Uporządkuj poniższe zjawiska od najmniej groźnych do najbardziej groźnych społecznie:
+a) segregacja
+b) dyskryminacja
+c) stereotyp
+d) eksterminacja
+e) przesąd`,
+`(158) Kiedy ktoś zmusza się do picia alkoholu, bo tego oczekują od niego koledzy, to jest to przykład:
+a) nonkonformizmu
+b) dewiacji
+c) konformizmu
+d) wycofania się
+e) oportunizmu`,
+`(160) Zmiana dialektyczna, rewolucyjna czy skokowa to odmiana:
+a) rozwoju społecznego
+b) procesu cyklicznego
+c) ewolucji
+d) postępu społecznego
+e) traumy kulturowej`,
+];
+
+const answers = {
+  "1": "c",
+  "2": "e",
+  "3": "b",
+  "4": "d",
+  "5": "c",
+  "6": "e",
+  "7": "b",
+  "8": "c",
+  "9": "c",
+  "10": "d",
+  "11": "e",
+  "12": "b",
+  "13": "b",
+  "14": "d",
+  "15": "b",
+  "16": "d",
+  "17": "c",
+  "18": "d",
+  "20": "a",
+  "21": "c",
+  "22": "c",
+  "23": "a",
+  "24": "c",
+  "25": "d",
+  "26": "b",
+  "27": "c",
+  "28": "b",
+  "29": "c",
+  "30": "c",
+  "31": "c",
+  "32": "b",
+  "33": "a",
+  "34": "b",
+  "35": "c",
+  "36": "d",
+  "37": "e",
+  "38": "d",
+  "39": "c",
+  "40": "c",
+  "41": "c",
+  "42": "d",
+  "43": "a",
+  "44": "d",
+  "45": "d",
+  "46": "c",
+  "47": "c",
+  "48": "d",
+  "49": "b",
+  "50": "b",
+  "51": "c",
+  "52": "b",
+  "53": "c",
+  "54": "b",
+  "55": "d",
+  "56": "e",
+  "57": "b",
+  "58": "c",
+  "59": "b",
+  "60": "d",
+  "61": "b",
+  "62": "e",
+  "63": "b",
+  "64": "c",
+  "65": "c",
+  "66": "d",
+  "67": "d",
+  "68": "c",
+  "69": "b",
+  "70": "b",
+  "71": "c",
+  "72": "c",
+  "73": "d",
+  "74": "c",
+  "75": "b",
+  "76": "d",
+  "77": "b",
+  "78": "c",
+  "79": "b",
+  "80": "c",
+  "81": "d",
+  "82": "b",
+  "83": "b",
+  "84": "d",
+  "85": "c",
+  "86": "d",
+  "87": "c",
+  "88": "c",
+  "89": "c",
+  "90": "d",
+  "91": "c",
+  "92": "c",
+  "93": "a",
+  "94": "c",
+  "95": "c",
+  "96": "b",
+  "97": "c",
+  "98": "c",
+  "99": "d",
+  "100": "c",
+  "101": "e",
+  "102": "c",
+  "103": "b",
+  "104": "c",
+  "105": "d",
+  "106": "d",
+  "107": "d",
+  "108": "c",
+  "109": "d",
+  "110": "d",
+  "111": "c",
+  "112": "b",
+  "114": "c",
+  "115": "c",
+  "116": "c",
+  "117": "b",
+  "118": "a",
+  "119": "d",
+  "120": "a",
+  "121": "c",
+  "122": "c",
+  "123": "d",
+  "124": "b",
+  "125": "b",
+  "126": "a",
+  "127": "b",
+  "128": "a",
+  "129": "d",
+  "130": "c",
+  "131": "b",
+  "132": "a",
+  "133": "c",
+  "134": "c",
+  "135": "b",
+  "136": "b",
+  "137": "b",
+  "138": "b",
+  "139": "b",
+  "140": "c",
+  "141": "c",
+  "142": "d",
+  "143": "b",
+  "144": "c",
+  "145": "c",
+  "146": "c",
+  "147": "d",
+  "148": "c",
+  "149": "d",
+  "150": "b",
+  "152": "e",
+  "153": "b",
+  "154": "d",
+  "155": "d",
+  "156": "b",
+  "158": "c",
+  "159": "c",
+  "160": "a"
+};
+
+let questionPool = [...Array(questions.length).keys()];
+
+// Funkcja, która wyciąga numer pytania z tekstu, np. "(1)" na początku linii
+function getQuestionNumber(text) {
+  const match = text.match(/^\((\d+)\)/);
+  return match ? match[1] : null;
+}
+
+function startQuiz() {
+  if (questionPool.length === 0) {
+    document.getElementById('question').innerHTML = 'Gratulacje! Ukończyłeś quiz.';
+    document.getElementById('answers').innerHTML = '';
+    return;
+  }
+  const randIndex = Math.floor(Math.random() * questionPool.length);
+  const qIndex = questionPool[randIndex];
+  showQuestion(qIndex);
+}
+
+function showQuestion(index) {
+  const qText = questions[index];
+  const qNum = getQuestionNumber(qText);
+  const questionDiv = document.getElementById('question');
+  const answersDiv = document.getElementById('answers');
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = '';
+
+  // Wyświetl tylko pierwszą linię pytania jako nagłówek
+  questionDiv.innerHTML = qText.split('\n')[0];
+  answersDiv.innerHTML = '';
+
+  // Pobierz linie z odpowiedziami - pomiń pierwszą linię pytania
+  const lines = qText.split('\n').slice(1);
+
+  lines.forEach(line => {
+    const match = line.match(/^([a-e])\)\s*(.*)/);
+    if (match) {
+      const letter = match[1];
+      const answerText = match[2];
+      const btn = document.createElement('button');
+      btn.textContent = `${letter}) ${answerText}`;
+      btn.onclick = () => checkAnswer(qNum, letter, index);
+      answersDiv.appendChild(btn);
+    }
+  });
+}
+
+function checkAnswer(qNum, selected, qIndex) {
+  const correct = answers[qNum];
+  const resultDiv = document.getElementById('result');
+  if (selected === correct) {
+    resultDiv.innerHTML = '✅ Dobra odpowiedź!';
+    // Usuwamy pytanie z puli, żeby nie powtarzało się
+    questionPool = questionPool.filter(i => i !== qIndex);
+  } else {
+    resultDiv.innerHTML = `❌ Zła odpowiedź! Prawidłowa to: ${correct})`;
+  }
+  setTimeout(startQuiz, 1000);
+}
+
+startQuiz();
+</script>
+
+</body>
+</html>
